@@ -36,7 +36,7 @@ scene.add(model);
 const DARKEN = { DarkGrayAnodized: 0.42, BatteryGray: 0.72 };
 const matCache = {};
 const GHOST = new THREE.MeshStandardMaterial({
-  color: 0x4a5058, transparent: true, opacity: 0.14,
+  color: 0x4a5058, transparent: true, opacity: 0.18,
   depthWrite: false, roughness: 0.9 });
 
 // part grouping: object name -> part entry
