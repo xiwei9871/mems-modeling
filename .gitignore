@@ -32,3 +32,4 @@ stage_*/assets/*.png
 stage_*/web/*.glb
 stage_*/web-v1/node_modules/
 stage_*/web-v1/dist/
+.playwright-cli/
