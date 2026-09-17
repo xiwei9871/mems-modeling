@@ -17,7 +17,7 @@ GROUPS = [
     ("P10", "USB_DustCap",       ["USB_DustCap","USB_Cap_Tether"],        "rubber", "tethered cap hangs below +y-wall port", "estimated from photo"),
     ("P11", "Battery_L",         ["Battery_L"],                           "gray potted pack", "7.5x4.0x4.2 hex prism (colleague)", "colleague blend, mirrored pos"),
     ("P12", "Battery_R",         ["Battery_R"],                           "gray potted pack", "7.5x4.0x4.2 hex prism (colleague)", "colleague blend, mirrored pos"),
-    ("P13", "PCB_Assembly",      [o.name for o in bpy.data.objects if o.name.startswith(("PCB_","PASV","U1","U2","U5","U8","Y1","Q1","Q2","L1","L2","J1","J2","J3","J4","J6","J7","JB","XT1"))], "FR4 green + parts", "~5.2x7.4x0.16 on standoffs; STM32+Air724+2SMA+JST row+2x3R3+mid screw", "photo-matched layout"),
+    ("P13", "PCB_Assembly",      [o.name for o in bpy.data.objects if o.name.startswith(("PCB_","PASV","U1","U2","U3","U5","U8","Y1","Q1","Q2","L1","L2","J1","J2","J3","J4","J6","J7","JB","XT1"))], "FR4 green + parts", "~5.2x7.4x0.16 on standoffs; STM32+MEMS+Air724+2SMA+JST row+2x3R3+mid screw", "photo-matched layout"),
     ("P14", "Wiring",            [o.name for o in bpy.data.objects if o.name.startswith(("Wire_","Harness_","Coax","USB_H"))], "wire/coax", "battery leads, bulkhead 4-wire, antenna coax, USB harness", "estimated from photo"),
 ]
 

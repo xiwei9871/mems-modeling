@@ -24,6 +24,8 @@
     display: flex; align-items: center; gap: 12px; width: min(560px, 70vw);
     color: #9aa0aa; font-size: 12px; letter-spacing: 0.06em; }
   #explode { flex: 1; accent-color: #e8eaee; }
+  #play { all: unset; cursor: pointer; color: #e8eaee; font-size: 12px;
+    padding: 5px 14px; border-radius: 6px; background: rgba(255,255,255,0.08); }
   #parts { position: fixed; top: 16px; right: 16px; display: flex;
     flex-direction: column; gap: 4px; max-height: 70vh; overflow: auto;
     align-items: flex-end; }
@@ -39,7 +41,7 @@
   <div class="sub" id="shotSub">loading…</div></div>
 <div id="shots"></div>
 <div id="parts"></div>
-<div id="explodeBar"><span>explode</span>
+<div id="explodeBar"><button id="play">▶ story</button><span>explode</span>
   <input id="explode" type="range" min="0" max="100" value="0" /></div>
 <div id="hint">drag orbit · wheel zoom · 右键平移</div>
 <script type="importmap">

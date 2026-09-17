@@ -8,7 +8,7 @@ os.makedirs(WEB, exist_ok=True)
 
 # ---- part grouping (same rules as build_manifest.py GROUPS) ----
 def pcb_obj(name):
-    return name.startswith(("PCB_", "PASV", "U1", "U2", "U5", "U8", "Y1",
+    return name.startswith(("PCB_", "PASV", "U1", "U2", "U3", "U5", "U8", "Y1",
                             "Q1", "Q2", "L1", "L2", "J1", "J2", "J3", "J4",
                             "J6", "J7", "JB", "XT1"))
 
@@ -50,15 +50,25 @@ LID_HIDE = (["Lid_Plate", "Puck_Antenna", "Antenna_Boss", "Antenna_Stud",
              "Antenna_Washer", "Antenna_Nut", "Coax_ANT"] +
             [n for p in parts if p["id"] == "P05" for n in p["objects"]])
 
-# ---- shots: direction/dist/target in BLENDER coords -> converted below ----
+# ---- story shots: 6 functional beats, same narrative as seismograph project ----
+# (id, title, desc, dir, dist, target, mode, subject_parts, subject_obj_prefixes, explode, hide_lid)
 SHOTS_B = [
-    ("iso",   "整机 ISO",   (1, -1, 0.75),  30, (0, 0, 3.0), False),
-    ("front", "正面 · 连接器", (0, -1, 0.15), 26, (0, 0, 3.0), False),
-    ("back",  "背面 · USB",  (0.15, 1, 0.18), 26, (0, 0, 3.0), False),
-    ("top",   "顶视",        (0, 0, 1),      30, (0, 0, 2.5), False),
-    ("bottom","底部 · 磁脚",  (0.3, -0.8, -1), 28, (0, 0, 1.0), False),
-    ("open",  "开盖内构",    (1, -1, 1.0),   26, (0, 0, 2.5), True),
-    ("pcb",   "PCB 特写",    (0.45, -0.9, 1.1), 15, (0, 0, 1.6), True),
+    ("overview", "01 · OVERVIEW", "整机 · MEMS 振动感知 IoT 侦测单元",
+     (1, -1, 0.75), 30, (0, 0, 3.0), "full", [], [], 0.0, False),
+    ("architecture", "02 · ARCHITECTURE", "结构 · 铝壳体 / 底板 / 翻盖 / 磁吸安装",
+     (1, -1, 0.9), 30, (0, 0, 2.6), "isolate",
+     ["P01", "P02", "P03", "P04", "P05"], [], 0.55, False),
+    ("acquisition", "03 · ACQUISITION", "采集 · MEMS 加速度计 → 前端 → STM32 主控",
+     (0.45, -0.9, 1.1), 16, (0, 0, 1.6), "dim", ["P13"], [], 0.0, True),
+    ("sensing", "04 · SENSING", "感知 · 磁吸底座耦合地面振动 → MEMS 加速度计",
+     (0.3, -0.8, 1.0), 15, (0.6, -0.9, 1.7), "dim",
+     ["P02"], ["U3_MEMS"], 0.0, True),
+    ("battery", "05 · BATTERY", "供电 · 双锂电组 · 2P JST 上板",
+     (0.9, -1, 0.5), 26, (0, 0, 2.6), "isolate",
+     ["P11", "P12"], ["Wire_Bat"], 0.0, True),
+    ("transmission", "06 · TRANSMISSION", "传输 · Air724 4G 模组 → SMA → 顶部天线帽",
+     (1, -0.5, 0.9), 26, (0, 0, 3.2), "dim",
+     ["P06", "P07"], ["Coax_ANT", "U2_AIR724", "J3_ANT"], 0.0, False),
 ]
 
 import mathutils
@@ -66,13 +76,15 @@ def to_three(x, y, z):
     return [round(x, 3), round(z, 3), round(-y, 3)]  # blender(x,y,z)->glTF(x,z,-y)
 
 shots = []
-for sid, title, d, dist, tgt, hide_lid in SHOTS_B:
+for (sid, title, desc, d, dist, tgt, mode, subj, objs, explode,
+     hide_lid) in SHOTS_B:
     dv = mathutils.Vector(d).normalized()
     tv = mathutils.Vector(tgt)
     p = tv + dv * dist
-    shots.append({"id": sid, "title": title,
+    shots.append({"id": sid, "title": title, "desc": desc,
                   "pos": to_three(*p), "target": to_three(*tv),
-                  "hide_lid": hide_lid})
+                  "mode": mode, "subjects": subj, "objects": objs,
+                  "explode": explode, "hide_lid": hide_lid})
 
 manifest = {
     "glb": "detector_assembly.glb",

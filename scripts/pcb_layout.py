@@ -21,6 +21,7 @@ COMPONENTS = [
     {"id": "U8",        "type": "ic",      "pos": (-1.75, -1.3),  "size": (0.9, 0.6, 0.12)},
     {"id": "Y1",        "type": "block",   "pos": (1.85, -3.2),   "size": (0.75, 0.65, 0.28)},
     {"id": "U5",        "type": "ic",      "pos": (1.3, -2.5),    "size": (0.45, 0.3, 0.1)},
+    {"id": "U3_MEMS",   "type": "ic",      "pos": (1.15, -1.6),   "size": (0.55, 0.55, 0.12)},
     {"id": "J3_ANT",    "type": "sma",     "pos": (2.1, -2.0)},
     {"id": "J6_ANT_GNSS", "type": "sma",   "pos": (-1.5, 2.3)},
     {"id": "J1",        "type": "jst",     "pos": (2.3, -0.55),   "pins": 4, "dir": "y"},
