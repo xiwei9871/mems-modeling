@@ -49,7 +49,8 @@ def shot(name, direction, ortho_scale, target=(0, 0, 3.0), hide=()):
         o = bpy.data.objects.get(h)
         if o: o.hide_render = False
 
-lid_parts = ["Lid_Plate", "Puck_Antenna", "Antenna_Stud", "Antenna_Washer", "Antenna_Nut"] + \
+lid_parts = ["Lid_Plate", "Puck_Antenna", "Antenna_Boss", "Antenna_Stud",
+             "Antenna_Washer", "Antenna_Nut", "Coax_ANT"] + \
             [f"Lid_Screw_{i:02d}_{p}" for i in range(1, 5) for p in ("head", "shaft", "hex")]
 
 shot("iso",      (1, -1, 0.75), 24)

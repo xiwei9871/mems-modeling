@@ -7,6 +7,7 @@ import bpy
 import json
 import math
 import os
+import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "output", "stage01_assembly")
@@ -28,7 +29,7 @@ def make_mat(name, color, metallic=0.0, roughness=0.5):
     return m
 
 MAT = {
-    "housing":  make_mat("BlackAnodized", (0.020, 0.020, 0.024), 0.65, 0.42),
+    "housing":  make_mat("DarkGrayAnodized", (0.13, 0.13, 0.145), 0.55, 0.50),
     "magnet":   make_mat("MagnetSilver",  (0.60, 0.62, 0.65), 0.95, 0.25),
     "steel":    make_mat("Steel",         (0.50, 0.51, 0.53), 0.95, 0.30),
     "brass":    make_mat("Brass",         (0.55, 0.40, 0.15), 0.90, 0.35),
@@ -181,9 +182,9 @@ p1.rotation_euler[0] = math.radians(90)
 bpy.context.view_layer.objects.active = p1
 bpy.ops.object.transform_apply(rotation=True)
 bool_cut(body, p1)
-# USB port hole on left wall (dia 1.2 at y=-0.8, z=2.3)
-p2 = cyl("usbcut", 0.60, 1.2, (-6.8, -0.8, 2.3), None)
-p2.rotation_euler[1] = math.radians(90)
+# USB-C port hole on +y wall (opposite the bulkhead wall), x=+1.0, z=3.2
+p2 = cyl("usbcut", 0.60, 1.2, (1.0, 4.0, 3.2), None)
+p2.rotation_euler[0] = math.radians(90)
 bpy.context.view_layer.objects.active = p2
 bpy.ops.object.transform_apply(rotation=True)
 bool_cut(body, p2)
@@ -218,34 +219,42 @@ for sx in (-1, 1):
 prof = [(0.0, 5.22), (2.95, 5.22), (3.0, 5.30), (3.0, 6.70),
         (2.96, 6.95), (2.86, 7.12), (2.70, 7.24), (2.45, 7.30), (0.0, 7.30)]
 lathe("Puck_Antenna", prof, MAT["housing"])
-# SMA feedthrough under lid center: stud + washer + nut
-cyl("Antenna_Stud", 0.16, 0.9, (0, 0, 4.9), MAT["gold"], verts=24)
-cyl("Antenna_Washer", 0.55, 0.06, (0, 0, 5.15), MAT["steel"], verts=32)
-hexprism("Antenna_Nut", 0.45, 0.22, (0, 0, 4.72), MAT["brass"])
+# SMA feedthrough under lid center: machined alu boss + gold stud + nut
+cyl("Antenna_Boss", 1.30, 0.28, (0, 0, 4.88), MAT["steel"], verts=48)
+cyl("Antenna_Stud", 0.16, 1.1, (0, 0, 4.8), MAT["gold"], verts=24)
+cyl("Antenna_Washer", 0.55, 0.06, (0, 0, 4.70), MAT["steel"], verts=32)
+hexprism("Antenna_Nut", 0.45, 0.22, (0, 0, 4.55), MAT["brass"])
 
-# ---------- P07 front bulkhead connector ----------
-cyl("Bulkhead_Collar", 0.75, 0.35, (0, -4.32, 3.2), MAT["port_blk"], verts=32).rotation_euler[0] = math.radians(90)
-bpy.context.view_layer.objects.active = bpy.data.objects["Bulkhead_Collar"]
+# ---------- P07 front bulkhead connector (nut+body inside per photo) ----------
+# outside: small threaded stub only
+cyl("Bulkhead_Stub", 0.38, 0.35, (0, -4.28, 3.2), MAT["port_blk"], verts=32).rotation_euler[0] = math.radians(90)
+bpy.context.view_layer.objects.active = bpy.data.objects["Bulkhead_Stub"]
 bpy.ops.object.transform_apply(rotation=True)
-hexprism("Bulkhead_Nut", 0.85, 0.22, (0, -4.42, 3.2), MAT["steel"]).rotation_euler[0] = math.radians(90)
+# inside: hex nut against wall + round knurled body
+hexprism("Bulkhead_Nut", 0.85, 0.25, (0, -3.95, 3.2), MAT["steel"]).rotation_euler[0] = math.radians(90)
 bpy.context.view_layer.objects.active = bpy.data.objects["Bulkhead_Nut"]
 bpy.ops.object.transform_apply(rotation=True)
-cyl("Bulkhead_Inner", 0.45, 0.5, (0, -3.95, 3.2), MAT["port_blk"], verts=24).rotation_euler[0] = math.radians(90)
-bpy.context.view_layer.objects.active = bpy.data.objects["Bulkhead_Inner"]
+cyl("Bulkhead_Body", 0.62, 0.55, (0, -3.62, 3.2), MAT["port_blk"], verts=32).rotation_euler[0] = math.radians(90)
+bpy.context.view_layer.objects.active = bpy.data.objects["Bulkhead_Body"]
+bpy.ops.object.transform_apply(rotation=True)
+cyl("Bulkhead_Back", 0.45, 0.4, (0, -3.35, 3.2), MAT["port_blk"], verts=24).rotation_euler[0] = math.radians(90)
+bpy.context.view_layer.objects.active = bpy.data.objects["Bulkhead_Back"]
 bpy.ops.object.transform_apply(rotation=True)
 
-# ---------- P08 USB port + dust cap ----------
-cyl("USB_Port", 0.55, 0.45, (-6.95, -0.8, 2.3), MAT["port_blk"], verts=32).rotation_euler[1] = math.radians(90)
+# ---------- P08 USB-C port + tethered dust cap on +y wall (x=+1.0, z=3.2) ----------
+# round rubber grommet surround + recessed USB-C slot
+cyl("USB_Port", 0.50, 0.40, (1.0, 4.15, 3.2), MAT["port_blk"], verts=32).rotation_euler[0] = math.radians(90)
 bpy.context.view_layer.objects.active = bpy.data.objects["USB_Port"]
 bpy.ops.object.transform_apply(rotation=True)
-cyl("USB_Collar", 0.62, 0.12, (-7.02, -0.8, 2.3), MAT["port_blk"], verts=32).rotation_euler[1] = math.radians(90)
+cyl("USB_Collar", 0.66, 0.18, (1.0, 4.28, 3.2), MAT["rubber"], verts=40).rotation_euler[0] = math.radians(90)
 bpy.context.view_layer.objects.active = bpy.data.objects["USB_Collar"]
 bpy.ops.object.transform_apply(rotation=True)
-# dust cap hanging below, tethered
-cyl("USB_DustCap", 0.72, 0.45, (-7.55, -0.8, 1.15), MAT["rubber"], verts=32).rotation_euler[1] = math.radians(90)
+box("USB_Slot", 0.42, 0.04, 0.15, (1.0, 4.38, 3.2), MAT["port_blk"], bevel=0.05)
+# dust cap hangs below the port on its tether
+cyl("USB_DustCap", 0.68, 0.35, (1.05, 4.75, 1.25), MAT["rubber"], verts=32).rotation_euler[0] = math.radians(90)
 bpy.context.view_layer.objects.active = bpy.data.objects["USB_DustCap"]
 bpy.ops.object.transform_apply(rotation=True)
-tube("USB_Cap_Tether", [(-7.3, -0.8, 2.1), (-7.62, -0.8, 1.6), (-7.55, -0.8, 1.35)], 0.05, MAT["rubber"])
+tube("USB_Cap_Tether", [(1.0, 4.45, 2.85), (1.15, 4.68, 2.1), (1.05, 4.74, 1.45)], 0.055, MAT["rubber"])
 
 # ---------- P09..P10 batteries (colleague profile, 7.5x4x4.2) ----------
 # Hex cross-section in (u=z-height vs w): bottom 7.5, sides 3.2, 1x1 chamfers, top 5.5
@@ -276,51 +285,162 @@ def make_battery(name, cx):
 make_battery("Battery_L", -4.62)
 make_battery("Battery_R", 4.62)
 
-# ---------- P11 PCB + components ----------
-# board 5.2(x) x 7.5(y) x 0.16, top at z=1.51, on 4 standoffs
-box("PCB_Board", 2.6, 3.75, 0.08, (0, 0, 1.43), MAT["pcb"], bevel=0.05)
-for sx in (-1, 1):
-    for sy in (-1, 1):
-        hexprism(f"PCB_Standoff_{sx}_{sy}", 0.28, 0.68, (2.2 * sx, 3.3 * sy, 1.01), MAT["brass"])
-        cyl(f"PCB_Screw_{sx}_{sy}", 0.14, 0.12, (2.2 * sx, 3.3 * sy, 1.55), MAT["steel"], verts=20)
-        cyl(f"PCB_Pad_{sx}_{sy}", 0.30, 0.03, (2.2 * sx, 3.3 * sy, 1.52), MAT["gold"], verts=24)
-# STM32 QFP100 center-top
-box("U1_STM32", 0.75, 0.75, 0.07, (-0.3, 0.9, 1.55), MAT["chip"], bevel=0.03)
-box("U1_frame", 0.82, 0.82, 0.025, (-0.3, 0.9, 1.51), MAT["steel"])
-# Air724UG 4G module (right-lower)
-box("U2_Air724", 1.55, 1.25, 0.12, (0.9, -1.3, 1.57), MAT["module"], bevel=0.04)
-box("U2_label", 0.7, 0.7, 0.02, (0.9, -1.3, 1.64), MAT["white"])
-# 2x SMA edge-mount vertical jacks
-for nm, x, y in [("SMA_ANT", 0.6, 3.45), ("SMA_GNSS", 1.7, -3.45)]:
-    cyl(nm, 0.32, 0.55, (x, y, 1.78), MAT["gold"], verts=24)
-    cyl(nm + "_tip", 0.10, 0.15, (x, y, 2.08), MAT["gold"], verts=16)
-# 3x JST PH on left edge (VBUS/batt/ext)
-for j, y in enumerate([-2.4, -0.9, 1.2], 1):
-    box(f"JST_{j}", 0.30, 0.42, 0.28, (-2.25, y, 1.65), MAT["white"], bevel=0.04)
-# 2x 3R3 shielded inductors
-for j, y in enumerate([2.3, 1.5]):
-    box(f"IND_{j}", 0.36, 0.36, 0.18, (-1.3, y, 1.60), MAT["chip"], bevel=0.05)
-# misc passives strip near bottom edge + regulator
-for j, (x, y) in enumerate([(-1.8, -3.0), (-0.9, -3.1), (0.0, -3.0), (1.9, 0.5), (-1.9, 2.9)]):
-    box(f"PASS_{j}", 0.16, 0.10, 0.06, (x, y, 1.54), MAT["steel"])
-box("XTAL", 0.35, 0.25, 0.08, (-1.3, 0.1, 1.55), MAT["module"])
-# header for front bulkhead harness
-box("HDR_BULK", 0.5, 0.2, 0.25, (0.0, -3.3, 1.64), MAT["port_blk"])
+# ---------- P11 PCB assembly (per scripts/pcb_layout.py) ----------
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+import pcb_layout as PL
+
+ZB = PL.BOARD_TOP_Z                      # 1.51 (board top surface)
+HX, HY = PL.BOARD["x"] / 2, PL.BOARD["y"] / 2
+
+# board mesh: manual box so the top face gets a full-bleed UV + texture
+bx = [-HX, HX, HX, -HX]
+by = [-HY, -HY, HY, HY]
+z0, z1 = ZB - PL.BOARD["t"], ZB
+verts = [(x, y, z0) for x, y in zip(bx, by)] + [(x, y, z1) for x, y in zip(bx, by)]
+faces = [(0, 3, 2, 1), (4, 5, 6, 7),
+         (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+me = bpy.data.meshes.new("PCB_Board")
+me.from_pydata(verts, [], faces)
+me.update()
+board = link_obj(bpy.data.objects.new("PCB_Board", me))
+board.data.materials.append(MAT["pcb"])                       # sides/bottom
+topmat = bpy.data.materials.new("PCBTop")
+topmat.use_nodes = True
+topmat.diffuse_color = (0.02, 0.24, 0.07, 1)
+_bsdf = topmat.node_tree.nodes["Principled BSDF"]
+_tex = topmat.node_tree.nodes.new("ShaderNodeTexImage")
+_tex.image = bpy.data.images.load(os.path.join(ROOT, "assets", "pcb_surface.png"))
+topmat.node_tree.links.new(_tex.outputs["Color"], _bsdf.inputs["Base Color"])
+_bsdf.inputs["Roughness"].default_value = 0.62
+board.data.materials.append(topmat)                           # top face index 1
+board.data.polygons[1].material_index = 1
+uv = board.data.uv_layers.new(name="UVTop")
+for poly in board.data.polygons:
+    for li in poly.loop_indices:
+        if poly.index == 1:
+            vx, vy, _ = board.data.vertices[board.data.loops[li].vertex_index].co
+            uv.data[li].uv = ((vx + HX) / (2 * HX), (vy + HY) / (2 * HY))
+        else:
+            uv.data[li].uv = (0.012, 0.012)                   # border = plain green
+# 4 mounting holes + plated rings + standoffs + screws
+for i, (hx, hy) in enumerate(PL.MOUNT_HOLES, 1):
+    c = cyl(f"mhcut{i}", PL.MOUNT_HOLE_R, 0.5, (hx, hy, ZB - 0.08), None, verts=20)
+    bool_cut(board, c)
+    bpy.ops.mesh.primitive_torus_add(major_radius=0.27, minor_radius=0.055,
+                                   major_segments=24, minor_segments=8,
+                                   location=(hx, hy, ZB))
+    ring = bpy.context.object; ring.name = f"PCB_Ring_{i}"
+    ring.data.materials.append(MAT["gold"])
+    hexprism(f"PCB_Standoff_{i}", 0.28, 0.68, (hx, hy, 1.01), MAT["brass"])
+    cyl(f"PCB_Screw_{i}", 0.15, 0.12, (hx, hy, ZB + 0.04), MAT["steel"], verts=20)
+
+def comp_box(name, c, hoff=0.0):
+    w, d, h = c["size"]
+    return box(name, w / 2, d / 2, h / 2, (c["pos"][0], c["pos"][1], ZB + h / 2 + hoff), None)
+
+for c in PL.COMPONENTS:
+    t, (cx, cy) = c["type"], c["pos"]
+    if t == "qfp":
+        o = comp_box(c["id"], c, 0.02); o.data.materials.append(MAT["chip"])
+        o.modifiers.new("edge", "BEVEL").width = 0.03
+        w, d = c["size"][0], c["size"][1]
+        for sx in (-1, 1):
+            box(f"{c['id']}_pins_x{sx}", 0.06, d / 2 + 0.08, 0.02,
+                (cx + sx * (w / 2 + 0.09), cy, ZB + 0.02), MAT["steel"])
+        for sy in (-1, 1):
+            box(f"{c['id']}_pins_y{sy}", w / 2 + 0.08, 0.06, 0.02,
+                (cx, cy + sy * (d / 2 + 0.09), ZB + 0.02), MAT["steel"])
+    elif t == "module":
+        o = comp_box(c["id"], c); o.data.materials.append(MAT["module"])
+        o.modifiers.new("edge", "BEVEL").width = 0.04
+        w, d, h = c["size"]
+        box(c["id"] + "_label", w * 0.28, d * 0.30, 0.015,
+            (cx, cy, ZB + h + 0.008), MAT["white"])
+        # castellated edge bumps along -y and +y
+        for sy in (-1, 1):
+            for k in range(10):
+                px = cx - w / 2 + (k + 0.5) * w / 10
+                box(f"{c['id']}_pad{sy}_{k}", 0.05, 0.05, 0.03,
+                    (px, cy + sy * (d / 2 - 0.03), ZB + 0.015), MAT["gold"])
+    elif t in ("ic", "block", "xtal"):
+        o = comp_box(c["id"], c); o.data.materials.append(MAT["chip"] if t != "xtal" else MAT["module"])
+        o.modifiers.new("edge", "BEVEL").width = 0.02
+    elif t == "sot223":
+        o = comp_box(c["id"], c); o.data.materials.append(MAT["chip"])
+        box(c["id"] + "_tab", c["size"][0] / 3, 0.06, 0.02,
+            (cx, cy - c["size"][1] / 2 - 0.05, ZB + 0.01), MAT["steel"])
+    elif t == "sma":
+        hexprism(c["id"] + "_base", 0.45, 0.5, (cx, cy, ZB + 0.25), MAT["gold"])
+        cyl(c["id"] + "_body", 0.31, 0.62, (cx, cy, ZB + 0.31), MAT["gold"], verts=24)
+        cyl(c["id"] + "_diel", 0.20, 0.03, (cx, cy, ZB + 0.63), MAT["white"], verts=20)
+        cyl(c["id"] + "_pin", 0.05, 0.05, (cx, cy, ZB + 0.64), MAT["gold"], verts=12)
+    elif t in ("jst", "jst_sm"):
+        s = 1.0 if t == "jst" else 0.75
+        npins = c.get("pins", 4)
+        long_ = 0.14 * npins * s + 0.1          # housing length along pin row
+        dep, hgt = 0.30 * s, 0.30 * s
+        along_y = c.get("dir", "y") == "y"      # edge JSTs: pin row along y
+        o = box(c["id"], dep / 2 if along_y else long_ / 2,
+                long_ / 2 if along_y else dep / 2,
+                hgt, (cx, cy, ZB + hgt), MAT["white"], bevel=0.03)
+        # contact bumps along the pin row
+        for k in range(npins):
+            off = (k - (npins - 1) / 2) * 0.135 * s
+            px, py = (cx, cy + off) if along_y else (cx + off, cy)
+            box(f"{c['id']}_p{k}", 0.06 * s, 0.06 * s, 0.05,
+                (px, py, ZB + 2 * hgt - 0.03), MAT["port_blk"])
+    elif t == "inductor":
+        o = comp_box(c["id"], c); o.data.materials.append(MAT["chip"])
+        o.modifiers.new("edge", "BEVEL").width = 0.06
+
+# deterministic passive sprinkle in zones, skipping component footprints
+import random as _r
+def _fp(c):
+    if c["type"] == "sma": s = 0.55
+    elif c["type"] in ("jst", "jst_sm"): s = None
+    else: s = None
+    if s is not None:
+        return (c["pos"][0]-s, c["pos"][1]-s, c["pos"][0]+s, c["pos"][1]+s)
+    if "size" in c:
+        w, d = c["size"][0], c["size"][1]
+    else:
+        w = d = 0.6 * len(str(c.get("pins", 4)))
+    m = 0.16
+    return (c["pos"][0]-w/2-m, c["pos"][1]-d/2-m, c["pos"][0]+w/2+m, c["pos"][1]+d/2+m)
+_fps = [_fp(c) for c in PL.COMPONENTS]
+_rg = _r.Random(PL.PASSIVE_SEED)
+_pi = 0
+for zx0, zy0, zx1, zy1, n in PL.PASSIVE_ZONES:
+    placed = 0
+    tries = 0
+    while placed < n and tries < 200:
+        tries += 1
+        px = _rg.uniform(zx0, zx1); py = _rg.uniform(zy0, zy1)
+        if any(a <= px <= b and c0 <= py <= d0 for a, c0, b, d0 in _fps):
+            continue
+        w = _rg.choice([0.16, 0.20, 0.10]); dp = _rg.choice([0.08, 0.10, 0.16])
+        if _rg.random() < 0.5: w, dp = dp, w
+        o = box(f"PASV_{_pi:02d}", w / 2, dp / 2, 0.045, (px, py, ZB + 0.045), MAT["chip"])
+        _pi += 1; placed += 1
 
 # ---------- P12 cables ----------
-# battery leads: red+black from each battery inner-top corner to JST
-tube("Wire_BatL_R", [(-2.7, 1.4, 4.0), (-2.4, 1.2, 2.6), (-2.25, 1.2, 1.75)], 0.045, MAT["wire_red"])
-tube("Wire_BatL_B", [(-2.7, 1.55, 4.0), (-2.4, 1.35, 2.6), (-2.25, 1.35, 1.75)], 0.045, MAT["wire_blk"])
-tube("Wire_BatR_R", [(2.7, -2.2, 4.0), (2.4, -2.3, 2.6), (0.2, -2.6, 1.7), (-2.25, -2.4, 1.75)], 0.045, MAT["wire_red"])
-tube("Wire_BatR_B", [(2.7, -2.05, 4.0), (2.4, -2.15, 2.6), (0.2, -2.45, 1.7), (-2.25, -2.55, 1.75)], 0.045, MAT["wire_blk"])
-# 4-wire harness: front bulkhead -> HDR_BULK
+# battery leads: +x pack -> J1 on +x edge; -x pack -> J7 on -x edge
+tube("Wire_BatR_R", [(2.65, -1.6, 4.1), (2.55, 0.2, 2.7), (2.3, 0.82, 1.75)], 0.045, MAT["wire_red"])
+tube("Wire_BatR_B", [(2.65, -1.45, 4.1), (2.55, 0.35, 2.7), (2.3, 0.98, 1.75)], 0.045, MAT["wire_blk"])
+tube("Wire_BatL_R", [(-2.65, -3.0, 4.1), (-2.5, -2.7, 2.7), (-2.3, -2.47, 1.75)], 0.045, MAT["wire_red"])
+tube("Wire_BatL_B", [(-2.65, -2.85, 4.1), (-2.5, -2.55, 2.7), (-2.3, -2.32, 1.75)], 0.045, MAT["wire_blk"])
+# 4-wire harness: bulkhead inside back shell -> JB_BULK jst
 for k, (mm, dz) in enumerate([("wire_red", 0.0), ("wire_wht", 0.10), ("wire_blu", 0.20), ("wire_blk", 0.30)]):
     xo = (k - 1.5) * 0.09
-    tube(f"Harness_{mm}", [(xo * 0.4, -3.95, 3.1 + dz * 0.3), (xo, -3.6, 2.4), (xo * 0.6, -3.35, 1.8)],
+    tube(f"Harness_{mm}", [(xo * 0.3, -3.3, 3.3 + dz), (0.15 + xo, -3.3, 2.4), (0.4 + xo * 0.5, -3.0, 1.72)],
          0.04, MAT[mm])
-# coax: SMA_ANT -> up over edge -> lid center stud
-tube("Coax_ANT", [(0.6, 3.45, 2.1), (0.7, 3.6, 3.4), (1.6, 3.0, 4.4), (0.6, 1.2, 4.85), (0.0, 0.0, 4.95)],
-     0.075, MAT["coax"])
+# USB internal harness: +y-wall port -> down -> along +x wall floor -> J1
+tube("USB_Harness", [(1.0, 3.95, 3.1), (1.1, 3.8, 1.6), (2.2, 3.4, 1.0),
+                     (2.45, 1.2, 1.0), (2.35, -0.2, 1.45)],
+     0.075, MAT["wire_wht"])
+# coax: J3 ANT sma (+x edge) -> up to lid stud
+tube("Coax_ANT", [(2.1, -2.0, 2.15), (2.3, -1.9, 3.5), (1.3, -0.8, 4.6),
+                  (0.3, -0.1, 4.9), (0.0, 0.0, 4.97)], 0.075, MAT["coax"])
 
 # ---------- organize into collections ----------
 asm = bpy.data.collections.new("Assembly")

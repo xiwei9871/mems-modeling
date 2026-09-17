@@ -11,14 +11,14 @@ GROUPS = [
     ("P04", "Lid_Plate",         ["Lid_Plate"],                           "aluminum, black anodized", "14.5x9x0.65 inverted tray, skirt 0.5", "colleague STL"),
     ("P05", "Lid_Screws",        [o.name for o in bpy.data.objects if o.name.startswith("Lid_Screw")], "steel", "4x flathead hex-socket", "measured hole pos"),
     ("P06", "Puck_Antenna",      ["Puck_Antenna"],                        "housing plastic/metal", "dia 6 x h2 dome, 4G antenna", "user + colleague STL"),
-    ("P07", "Antenna_Mount",     ["Antenna_Stud","Antenna_Washer","Antenna_Nut"], "gold/brass/steel", "SMA feedthrough thru lid", "inferred from photo"),
-    ("P08", "Front_Bulkhead",    ["Bulkhead_Collar","Bulkhead_Nut","Bulkhead_Inner"], "black+steel", "round panel connector dia~1.5, front wall z=3.2", "measured from STL"),
-    ("P09", "USB_Port",          ["USB_Port","USB_Collar"],               "black+steel", "round USB-C jack dia~1.1, left wall", "estimated from photo"),
-    ("P10", "USB_DustCap",       ["USB_DustCap","USB_Cap_Tether"],        "rubber", "tethered cap, hangs at left wall", "estimated from photo"),
+    ("P07", "Antenna_Mount",     ["Antenna_Boss","Antenna_Stud","Antenna_Washer","Antenna_Nut"], "alu+gold/brass", "machined boss + SMA feedthrough thru lid", "inferred from photo"),
+    ("P08", "Front_Bulkhead",    ["Bulkhead_Stub","Bulkhead_Nut","Bulkhead_Body","Bulkhead_Back"], "black+steel", "round panel connector dia~1.5, -y wall z=3.2; nut+body inside, threaded stub out", "measured from STL + photo"),
+    ("P09", "USB_Port",          ["USB_Port","USB_Collar","USB_Slot"],    "black+rubber", "USB-C jack in round grommet, +y wall x=1.0 z=3.2", "measured from photo"),
+    ("P10", "USB_DustCap",       ["USB_DustCap","USB_Cap_Tether"],        "rubber", "tethered cap hangs below +y-wall port", "estimated from photo"),
     ("P11", "Battery_L",         ["Battery_L"],                           "gray potted pack", "7.5x4.0x4.2 hex prism (colleague)", "colleague blend, mirrored pos"),
     ("P12", "Battery_R",         ["Battery_R"],                           "gray potted pack", "7.5x4.0x4.2 hex prism (colleague)", "colleague blend, mirrored pos"),
-    ("P13", "PCB_Assembly",      [o.name for o in bpy.data.objects if o.name.startswith(("PCB_","U1","U2","SMA","JST","IND","PASS","XTAL","HDR"))], "FR4 green + parts", "~5.2x7.5x0.16 on 4 standoffs; STM32+Air724+2SMA+3JST+2x3R3", "estimated from photo"),
-    ("P14", "Wiring",            [o.name for o in bpy.data.objects if o.name.startswith(("Wire_","Harness_","Coax"))], "wire/coax", "battery leads, bulkhead 4-wire, antenna coax", "estimated from photo"),
+    ("P13", "PCB_Assembly",      [o.name for o in bpy.data.objects if o.name.startswith(("PCB_","PASV","U1","U2","U5","U8","Y1","Q1","Q2","L1","L2","J1","J2","J3","J4","J6","J7","JB","XT1"))], "FR4 green + parts", "~5.2x7.4x0.16 on standoffs; STM32+Air724+2SMA+JST row+2x3R3+mid screw", "photo-matched layout"),
+    ("P14", "Wiring",            [o.name for o in bpy.data.objects if o.name.startswith(("Wire_","Harness_","Coax","USB_H"))], "wire/coax", "battery leads, bulkhead 4-wire, antenna coax, USB harness", "estimated from photo"),
 ]
 
 rows = []
