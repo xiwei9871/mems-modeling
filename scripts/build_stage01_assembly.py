@@ -47,6 +47,7 @@ MAT = {
     "coax":     make_mat("CoaxBlack",     (0.05, 0.05, 0.055), 0.10, 0.60),
     "module":   make_mat("ModuleSilver",  (0.62, 0.62, 0.64), 0.85, 0.35),
     "copper":   make_mat("Copper",        (0.72, 0.33, 0.14), 0.90, 0.35),
+    "ceramic":  make_mat("CeramicTan",    (0.62, 0.52, 0.34), 0.05, 0.55),
 }
 
 # ---------- helpers ----------
@@ -374,6 +375,18 @@ for c in PL.COMPONENTS:
                 px = cx - w / 2 + (k + 0.5) * w / 10
                 box(f"{c['id']}_pad{sy}_{k}", 0.05, 0.05, 0.03,
                     (px, cy + sy * (d / 2 - 0.03), ZB + 0.015), MAT["gold"])
+    elif t == "sensor":
+        # ADI MEMS accelerometer: beige ceramic LCC body + dark lid + pins
+        o = comp_box(c["id"], c); o.data.materials.append(MAT["ceramic"])
+        o.modifiers.new("edge", "BEVEL").width = 0.02
+        w, d, h = c["size"]
+        box(c["id"] + "_lid", w * 0.32, d * 0.32, 0.012,
+            (cx, cy, ZB + h + 0.006), MAT["port_blk"])
+        for sx in (-1, 1):
+            for k in range(4):
+                py = cy - d * 0.32 + k * d * 0.21
+                box(f"{c['id']}_pin{sx}_{k}", 0.045, 0.05, 0.02,
+                    (cx + sx * (w / 2 + 0.03), py, ZB + 0.01), MAT["gold"])
     elif t in ("ic", "block", "xtal"):
         o = comp_box(c["id"], c); o.data.materials.append(MAT["chip"] if t != "xtal" else MAT["module"])
         o.modifiers.new("edge", "BEVEL").width = 0.02

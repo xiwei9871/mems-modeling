@@ -35,9 +35,6 @@ scene.add(model);
 // darken materials that wash out under the env light (housing, battery wrap)
 const DARKEN = { DarkGrayAnodized: 0.42, BatteryGray: 0.72 };
 const matCache = {};
-const GHOST = new THREE.MeshStandardMaterial({
-  color: 0x4a5058, transparent: true, opacity: 0.18,
-  depthWrite: false, roughness: 0.9 });
 
 // part grouping: object name -> part entry
 const partOf = {};
@@ -112,11 +109,9 @@ function applyState() {
           home.z - e[1] * explodeK);  // blender y -> glTF -z
       }
       // GLTF splits multi-material objects into Group + child meshes —
-      // ghost/swap every mesh under this object node
+      // restore every mesh under this object node
       node.traverse((c) => {
-        if (c.isMesh)
-          c.material = (mode === "dim" && !isSubj) ? GHOST
-                                                   : c.userData.origMat;
+        if (c.isMesh) c.material = c.userData.origMat;
       });
     }
   }

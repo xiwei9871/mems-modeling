@@ -323,11 +323,19 @@
     "U2_AIR724_pad1_7",
     "U2_AIR724_pad1_8",
     "U2_AIR724_pad1_9",
-    "U3_MEMS",
+    "U3_ADXL",
+    "U3_ADXL_lid",
+    "U3_ADXL_pin-1_0",
+    "U3_ADXL_pin-1_1",
+    "U3_ADXL_pin-1_2",
+    "U3_ADXL_pin-1_3",
+    "U3_ADXL_pin1_0",
+    "U3_ADXL_pin1_1",
+    "U3_ADXL_pin1_2",
+    "U3_ADXL_pin1_3",
     "U5",
     "U8",
-    "XT1",
-    "Y1"
+    "XT1"
    ],
    "explode": [
     0,
@@ -423,23 +431,21 @@
   {
    "id": "sensing",
    "title": "04 · SENSING",
-   "desc": "感知 · 磁吸底座耦合地面振动 → MEMS 加速度计",
+   "desc": "感知 · ADI MEMS 加速度计（板上米色陶瓷封装）",
    "pos": [
-    6.082,
-    15.154,
-    13.259
+    3.153,
+    3.575,
+    5.372
    ],
    "target": [
-    0.5,
-    0.8,
-    0.5
+    1.85,
+    1.62,
+    3.2
    ],
    "mode": "isolate",
-   "subjects": [
-    "P02"
-   ],
+   "subjects": [],
    "objects": [
-    "U3_MEMS"
+    "U3_ADXL"
    ],
    "explode": 0.0,
    "hide_lid": false
