@@ -1,0 +1,466 @@
+{
+ "glb": "detector_assembly.glb",
+ "title": "UNITED-M3BW 智能无线侦测单元",
+ "subtitle": "mems_modeling · stage-01 assembly",
+ "units": "cm",
+ "lid_hide": [
+  "Lid_Plate",
+  "Puck_Antenna",
+  "Antenna_Boss",
+  "Antenna_Stud",
+  "Antenna_Washer",
+  "Antenna_Nut",
+  "Coax_ANT",
+  "Lid_Screw_01_head",
+  "Lid_Screw_01_hex",
+  "Lid_Screw_01_shaft",
+  "Lid_Screw_02_head",
+  "Lid_Screw_02_hex",
+  "Lid_Screw_02_shaft",
+  "Lid_Screw_03_head",
+  "Lid_Screw_03_hex",
+  "Lid_Screw_03_shaft",
+  "Lid_Screw_04_head",
+  "Lid_Screw_04_hex",
+  "Lid_Screw_04_shaft"
+ ],
+ "parts": [
+  {
+   "id": "P01",
+   "name": "Base_Plate",
+   "objects": [
+    "Base_Plate"
+   ],
+   "explode": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "P02",
+   "name": "Magnet_Feet",
+   "objects": [
+    "Magnet_Foot_01",
+    "Magnet_Foot_02",
+    "Magnet_Foot_03",
+    "Magnet_Foot_04"
+   ],
+   "explode": [
+    0,
+    0,
+    -1.4
+   ]
+  },
+  {
+   "id": "P03",
+   "name": "Body_Shell",
+   "objects": [
+    "Body_Shell"
+   ],
+   "explode": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "P04",
+   "name": "Lid_Plate",
+   "objects": [
+    "Lid_Plate"
+   ],
+   "explode": [
+    0,
+    0,
+    4.0
+   ]
+  },
+  {
+   "id": "P05",
+   "name": "Lid_Screws",
+   "objects": [
+    "Lid_Screw_01_head",
+    "Lid_Screw_01_hex",
+    "Lid_Screw_01_shaft",
+    "Lid_Screw_02_head",
+    "Lid_Screw_02_hex",
+    "Lid_Screw_02_shaft",
+    "Lid_Screw_03_head",
+    "Lid_Screw_03_hex",
+    "Lid_Screw_03_shaft",
+    "Lid_Screw_04_head",
+    "Lid_Screw_04_hex",
+    "Lid_Screw_04_shaft"
+   ],
+   "explode": [
+    0,
+    0,
+    4.8
+   ]
+  },
+  {
+   "id": "P06",
+   "name": "Puck_Antenna",
+   "objects": [
+    "Puck_Antenna"
+   ],
+   "explode": [
+    0,
+    0,
+    6.0
+   ]
+  },
+  {
+   "id": "P07",
+   "name": "Antenna_Mount",
+   "objects": [
+    "Antenna_Boss",
+    "Antenna_Nut",
+    "Antenna_Stud",
+    "Antenna_Washer"
+   ],
+   "explode": [
+    0,
+    0,
+    4.4
+   ]
+  },
+  {
+   "id": "P08",
+   "name": "Front_Bulkhead",
+   "objects": [
+    "Bulkhead_Back",
+    "Bulkhead_Body",
+    "Bulkhead_Nut",
+    "Bulkhead_Stub"
+   ],
+   "explode": [
+    0,
+    -2.5,
+    0
+   ]
+  },
+  {
+   "id": "P09",
+   "name": "USB_Port",
+   "objects": [
+    "USB_Collar",
+    "USB_Port",
+    "USB_Slot"
+   ],
+   "explode": [
+    0,
+    2.5,
+    0
+   ]
+  },
+  {
+   "id": "P10",
+   "name": "USB_DustCap",
+   "objects": [
+    "USB_Cap_Tether",
+    "USB_DustCap"
+   ],
+   "explode": [
+    0,
+    3.2,
+    -0.6
+   ]
+  },
+  {
+   "id": "P11",
+   "name": "Battery_L",
+   "objects": [
+    "Battery_L"
+   ],
+   "explode": [
+    -3.5,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "P12",
+   "name": "Battery_R",
+   "objects": [
+    "Battery_R"
+   ],
+   "explode": [
+    3.5,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "P13",
+   "name": "PCB_Assembly",
+   "objects": [
+    "J1",
+    "J1_p0",
+    "J1_p1",
+    "J1_p2",
+    "J1_p3",
+    "J2",
+    "J2_p0",
+    "J2_p1",
+    "J3_ANT_base",
+    "J3_ANT_body",
+    "J3_ANT_diel",
+    "J3_ANT_pin",
+    "J4",
+    "J4_p0",
+    "J4_p1",
+    "J4_p2",
+    "J4_p3",
+    "J6_ANT_GNSS_base",
+    "J6_ANT_GNSS_body",
+    "J6_ANT_GNSS_diel",
+    "J6_ANT_GNSS_pin",
+    "J7_BATL",
+    "J7_BATL_p0",
+    "J7_BATL_p1",
+    "JB_BULK",
+    "JB_BULK_p0",
+    "JB_BULK_p1",
+    "JB_BULK_p2",
+    "JB_BULK_p3",
+    "L1",
+    "L2",
+    "PASV_00",
+    "PASV_01",
+    "PASV_02",
+    "PASV_03",
+    "PASV_04",
+    "PASV_05",
+    "PASV_06",
+    "PASV_07",
+    "PASV_08",
+    "PASV_09",
+    "PASV_10",
+    "PASV_11",
+    "PASV_12",
+    "PASV_13",
+    "PASV_14",
+    "PASV_15",
+    "PASV_16",
+    "PASV_17",
+    "PASV_18",
+    "PASV_19",
+    "PASV_20",
+    "PASV_21",
+    "PASV_22",
+    "PASV_23",
+    "PASV_24",
+    "PASV_25",
+    "PASV_26",
+    "PASV_27",
+    "PASV_28",
+    "PASV_29",
+    "PASV_30",
+    "PASV_31",
+    "PASV_32",
+    "PASV_33",
+    "PASV_34",
+    "PASV_35",
+    "PASV_36",
+    "PASV_37",
+    "PASV_38",
+    "PASV_39",
+    "PASV_40",
+    "PASV_41",
+    "PASV_42",
+    "PASV_43",
+    "PASV_44",
+    "PASV_45",
+    "PASV_46",
+    "PASV_47",
+    "PASV_48",
+    "PCB_Board",
+    "PCB_Ring_1",
+    "PCB_Ring_2",
+    "PCB_Ring_3",
+    "PCB_Ring_4",
+    "PCB_Ring_5",
+    "PCB_Screw_1",
+    "PCB_Screw_2",
+    "PCB_Screw_3",
+    "PCB_Screw_4",
+    "PCB_Screw_5",
+    "PCB_Standoff_1",
+    "PCB_Standoff_2",
+    "PCB_Standoff_3",
+    "PCB_Standoff_4",
+    "PCB_Standoff_5",
+    "Q1",
+    "Q1_tab",
+    "Q2",
+    "Q2_tab",
+    "U1_STM32",
+    "U1_STM32_pins_x-1",
+    "U1_STM32_pins_x1",
+    "U1_STM32_pins_y-1",
+    "U1_STM32_pins_y1",
+    "U2_AIR724",
+    "U2_AIR724_label",
+    "U2_AIR724_pad-1_0",
+    "U2_AIR724_pad-1_1",
+    "U2_AIR724_pad-1_2",
+    "U2_AIR724_pad-1_3",
+    "U2_AIR724_pad-1_4",
+    "U2_AIR724_pad-1_5",
+    "U2_AIR724_pad-1_6",
+    "U2_AIR724_pad-1_7",
+    "U2_AIR724_pad-1_8",
+    "U2_AIR724_pad-1_9",
+    "U2_AIR724_pad1_0",
+    "U2_AIR724_pad1_1",
+    "U2_AIR724_pad1_2",
+    "U2_AIR724_pad1_3",
+    "U2_AIR724_pad1_4",
+    "U2_AIR724_pad1_5",
+    "U2_AIR724_pad1_6",
+    "U2_AIR724_pad1_7",
+    "U2_AIR724_pad1_8",
+    "U2_AIR724_pad1_9",
+    "U5",
+    "U8",
+    "XT1",
+    "Y1"
+   ],
+   "explode": [
+    0,
+    0,
+    1.6
+   ]
+  },
+  {
+   "id": "P14",
+   "name": "Wiring",
+   "objects": [
+    "Coax_ANT",
+    "Harness_wire_blk",
+    "Harness_wire_blu",
+    "Harness_wire_red",
+    "Harness_wire_wht",
+    "USB_Harness",
+    "Wire_BatL_B",
+    "Wire_BatL_R",
+    "Wire_BatR_B",
+    "Wire_BatR_R"
+   ],
+   "explode": [
+    0,
+    0,
+    0.4
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "id": "iso",
+   "title": "整机 ISO",
+   "pos": [
+    18.741,
+    17.056,
+    18.741
+   ],
+   "target": [
+    0.0,
+    3.0,
+    -0.0
+   ],
+   "hide_lid": false
+  },
+  {
+   "id": "front",
+   "title": "正面 · 连接器",
+   "pos": [
+    0.0,
+    6.857,
+    25.712
+   ],
+   "target": [
+    0.0,
+    3.0,
+    -0.0
+   ],
+   "hide_lid": false
+  },
+  {
+   "id": "back",
+   "title": "背面 · USB",
+   "pos": [
+    3.797,
+    7.557,
+    -25.314
+   ],
+   "target": [
+    0.0,
+    3.0,
+    -0.0
+   ],
+   "hide_lid": false
+  },
+  {
+   "id": "top",
+   "title": "顶视",
+   "pos": [
+    0.0,
+    32.5,
+    -0.0
+   ],
+   "target": [
+    0.0,
+    2.5,
+    -0.0
+   ],
+   "hide_lid": false
+  },
+  {
+   "id": "bottom",
+   "title": "底部 · 磁脚",
+   "pos": [
+    6.386,
+    -20.288,
+    17.03
+   ],
+   "target": [
+    0.0,
+    1.0,
+    -0.0
+   ],
+   "hide_lid": false
+  },
+  {
+   "id": "open",
+   "title": "开盖内构",
+   "pos": [
+    15.011,
+    17.511,
+    15.011
+   ],
+   "target": [
+    0.0,
+    2.5,
+    -0.0
+   ],
+   "hide_lid": true
+  },
+  {
+   "id": "pcb",
+   "title": "PCB 特写",
+   "pos": [
+    4.528,
+    12.668,
+    9.056
+   ],
+   "target": [
+    0.0,
+    1.6,
+    -0.0
+   ],
+   "hide_lid": true
+  }
+ ]
+}

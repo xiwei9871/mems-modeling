@@ -110,6 +110,15 @@ def bool_cut(target, cutter):
     bpy.ops.object.modifier_apply(modifier=mod.name)
     bpy.data.objects.remove(cutter)
 
+def bool_intersect(target, cutter):
+    bpy.context.view_layer.objects.active = target
+    mod = target.modifiers.new("int", "BOOLEAN")
+    mod.operation = "INTERSECT"
+    mod.solver = "EXACT"
+    mod.object = cutter
+    bpy.ops.object.modifier_apply(modifier=mod.name)
+    bpy.data.objects.remove(cutter)
+
 def bool_union(target, joiner):
     bpy.context.view_layer.objects.active = target
     mod = target.modifiers.new("uni", "BOOLEAN")
@@ -280,6 +289,9 @@ def make_battery(name, cx):
     o = link_obj(bpy.data.objects.new(name, me))
     o.data.materials.append(MAT["battery"])
     o.location = (cx, 0, 0.67)
+    # chamfer plan-view corners (potted pack) so corners stay inside body chamfer
+    cpts = [[cx + x, y] for x, y in chamfered_rect(2.0, 3.75, 0.9)]
+    bool_intersect(o, prism("batcut", cpts, -1.0, 6.5, None))
     return o
 
 make_battery("Battery_L", -4.62)

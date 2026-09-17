@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>United-M3BW · 装配查看器</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1a1d22;
+    font-family: -apple-system, "SF Pro", "PingFang SC", sans-serif; }
+  #app { position: fixed; inset: 0; }
+  #hud { position: fixed; top: 16px; left: 18px; color: #e8eaee;
+    font-size: 13px; letter-spacing: 0.08em; user-select: none; }
+  #hud .title { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+  #hud .sub { opacity: 0.55; }
+  #shots { position: fixed; left: 18px; bottom: 76px; display: flex;
+    flex-direction: column; gap: 6px; }
+  #shots button, #parts button { all: unset; cursor: pointer; padding: 5px 12px;
+    border-radius: 6px; color: #cfd3da; font-size: 12px; letter-spacing: 0.06em;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); }
+  #shots button:hover, #parts button:hover { background: rgba(255,255,255,0.12); }
+  #shots button.active { background: #e8eaee; color: #1a1d22; font-weight: 600; }
+  #explodeBar { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px; width: min(560px, 70vw);
+    color: #9aa0aa; font-size: 12px; letter-spacing: 0.06em; }
+  #explode { flex: 1; accent-color: #e8eaee; }
+  #parts { position: fixed; top: 16px; right: 16px; display: flex;
+    flex-direction: column; gap: 4px; max-height: 70vh; overflow: auto;
+    align-items: flex-end; }
+  #parts button { font-size: 11px; padding: 4px 10px; opacity: 0.85; }
+  #parts button.off { opacity: 0.35; text-decoration: line-through; }
+  #hint { position: fixed; left: 18px; bottom: 18px; color: #5c626c;
+    font-size: 11px; letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="hud"><div class="title" id="shotTitle">UNITED-M3BW</div>
+  <div class="sub" id="shotSub">loading…</div></div>
+<div id="shots"></div>
+<div id="parts"></div>
+<div id="explodeBar"><span>explode</span>
+  <input id="explode" type="range" min="0" max="100" value="0" /></div>
+<div id="hint">drag orbit · wheel zoom · 右键平移</div>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script type="module" src="./viewer.js"></script>
+</body>
+</html>
