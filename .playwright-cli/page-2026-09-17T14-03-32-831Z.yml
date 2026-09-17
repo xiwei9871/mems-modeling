@@ -1,0 +1,9 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]: UNITED-M3BW
+    - generic [ref=e6]: loading…
+  - generic [ref=e7]:
+    - button "▶ story" [ref=e8] [cursor=pointer]
+    - generic [ref=e9]: explode
+    - slider [ref=e10]: "0"
+  - generic [ref=e11]: drag orbit · wheel zoom · 右键平移

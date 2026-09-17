@@ -363,9 +363,9 @@
    "title": "01 · OVERVIEW",
    "desc": "整机 · MEMS 振动感知 IoT 侦测单元",
    "pos": [
-    18.741,
-    17.056,
-    18.741
+    23.738,
+    20.804,
+    23.738
    ],
    "target": [
     0.0,
@@ -381,30 +381,21 @@
   {
    "id": "architecture",
    "title": "02 · ARCHITECTURE",
-   "desc": "结构 · 铝壳体 / 底板 / 翻盖 / 磁吸安装 / 面板接口",
+   "desc": "结构 · 爆炸视图 · 壳体 / 电池 / PCB / 磁吸",
    "pos": [
-    17.896,
-    18.707,
-    17.896
+    25.455,
+    25.636,
+    25.455
    ],
    "target": [
     0.0,
-    2.6,
+    4.0,
     -0.0
    ],
-   "mode": "dim",
-   "subjects": [
-    "P01",
-    "P02",
-    "P03",
-    "P04",
-    "P05",
-    "P08",
-    "P09",
-    "P10"
-   ],
+   "mode": "full",
+   "subjects": [],
    "objects": [],
-   "explode": 0.55,
+   "explode": 1.0,
    "hide_lid": false
   },
   {
@@ -412,38 +403,38 @@
    "title": "03 · ACQUISITION",
    "desc": "采集 · MEMS 加速度计 → 前端 → STM32 主控",
    "pos": [
-    4.83,
-    13.406,
-    9.659
+    6.339,
+    17.095,
+    12.678
    ],
    "target": [
     0.0,
     1.6,
     -0.0
    ],
-   "mode": "dim",
+   "mode": "isolate",
    "subjects": [
     "P13"
    ],
    "objects": [],
    "explode": 0.0,
-   "hide_lid": true
+   "hide_lid": false
   },
   {
    "id": "sensing",
    "title": "04 · SENSING",
    "desc": "感知 · 磁吸底座耦合地面振动 → MEMS 加速度计",
    "pos": [
-    4.021,
-    13.104,
-    10.023
+    6.082,
+    15.154,
+    13.259
    ],
    "target": [
-    0.6,
-    1.7,
-    0.9
+    0.5,
+    0.8,
+    0.5
    ],
-   "mode": "dim",
+   "mode": "isolate",
    "subjects": [
     "P02"
    ],
@@ -451,20 +442,20 @@
     "U3_MEMS"
    ],
    "explode": 0.0,
-   "hide_lid": true
+   "hide_lid": false
   },
   {
    "id": "battery",
    "title": "05 · BATTERY",
    "desc": "供电 · 双锂电组 · 2P JST 上板",
    "pos": [
-    16.304,
-    11.658,
-    18.115
+    19.032,
+    11.916,
+    21.147
    ],
    "target": [
     0.0,
-    2.6,
+    2.4,
     -0.0
    ],
    "mode": "isolate",
@@ -476,23 +467,23 @@
     "Wire_Bat"
    ],
    "explode": 0.0,
-   "hide_lid": true
+   "hide_lid": false
   },
   {
    "id": "transmission",
    "title": "06 · TRANSMISSION",
    "desc": "传输 · Air724 4G 模组 → SMA → 顶部天线帽",
    "pos": [
-    18.115,
-    19.504,
-    9.058
+    24.997,
+    20.998,
+    14.998
    ],
    "target": [
     0.0,
-    3.2,
+    3.5,
     -0.0
    ],
-   "mode": "dim",
+   "mode": "isolate",
    "subjects": [
     "P06",
     "P07"
@@ -502,7 +493,7 @@
     "U2_AIR724",
     "J3_ANT"
    ],
-   "explode": 0.0,
+   "explode": 0.45,
    "hide_lid": false
   }
  ]
