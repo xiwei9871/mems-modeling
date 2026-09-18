@@ -241,14 +241,14 @@ async function focusTransmission(): Promise<void> {
   });
   void cameraCtl.goTo('SYS_TRANSMISSION.context', 1.0);
   await machine.reassemble(1.0);
-  // a narrow x-ray window like the seismograph's translucent handle: the top
-  // cover + antenna puck turn translucent, revealing the coax feed and the
-  // machined antenna boss inside — everything else stays opaque
+  // a narrow translucent window like the seismograph's handle: ONLY the top
+  // cover plate + antenna puck go ghost (0.38 — cover stays readable), the
+  // screws, antenna boss and everything inside stay fully opaque
   {
     const lid = registry.get('CMP_LID_ASSEMBLY');
     lid?.object3D.traverse((n) => {
-      if (/^(Lid_Plate|Lid_Screw_|Puck_Antenna)/.test(n.name))
-        materials.setLevel(n, 'XRAY', 0.8);
+      if (/^(Lid_Plate|Puck_Antenna)/.test(n.name))
+        materials.setLevel(n, 'GHOST', 0.8);
     });
   }
   // subtle emissive lift marks the radio chain: modem -> board SMA -> coax feed
