@@ -286,7 +286,9 @@ store.subscribe((s, prev) => {
     s.mode === 'inspection' && sys
       ? s.focusedSystem === 'SYS_TRANSMISSION'
         ? `${sys.displayName} — modem to puck antenna to cloud`
-        : `${sys.displayName} — orbit freely, click a core to extract`
+        : s.focusedSystem === 'SYS_SENSOR'
+          ? 'ADI MEMS accelerometer — on-board sensing element'
+          : `${sys.displayName} — orbit freely, click a core to extract`
       : s.mode === 'xray' && sys
         ? s.focusedSystem === 'SYS_TRANSMISSION'
           ? `${sys.displayName} — field data leaves the device here`
