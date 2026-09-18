@@ -117,6 +117,26 @@ async function boot(): Promise<void> {
   const problems = registry.validate();
   if (problems.length) console.error('semantic registry:', problems);
 
+  // inspectRot parts get a pivot wrapped around their subtree centre, so the
+  // inspect tilt spins the part about itself instead of orbiting its anchor.
+  // NOTE: child node origins sit at -anchor (verts are baked in world space),
+  // so the centre must come from the geometry bounds, not node positions.
+  for (const spec of Object.values(manifest.components)) {
+    if (!spec.inspectRot) continue;
+    const e = registry.get(spec.semanticId);
+    if (!e || !e.object3D.children.length) continue;
+    e.object3D.updateWorldMatrix(true, true);
+    const box = new THREE.Box3();
+    for (const ch of e.object3D.children) box.expandByObject(ch);
+    const c = e.object3D.worldToLocal(box.getCenter(new THREE.Vector3()));
+    const pivot = new THREE.Group();
+    pivot.name = 'INSPECT_PIVOT';
+    pivot.position.copy(c);
+    e.object3D.add(pivot);
+    for (const ch of [...e.object3D.children])
+      if (ch !== pivot) { pivot.add(ch); ch.position.sub(c); }
+  }
+
   materials = new MaterialStateManager(tweens);
   cameraCtl = new CameraController(camera, canvas, tweens, manifest.cameraPresets);
   machine = new ExperienceStateMachine(store, registry, materials, cameraCtl, tweens);
@@ -221,18 +241,18 @@ async function focusTransmission(): Promise<void> {
   });
   void cameraCtl.goTo('SYS_TRANSMISSION.context', 1.0);
   await machine.reassemble(1.0);
-  // a narrow x-ray window: only the HANDLE turns translucent — the antenna is
-  // sealed inside its left leg (internal antenna = waterproofing); the rest
-  // of the device stays opaque like overview
-  // a narrow x-ray window: the BODY SHELL turns translucent so the
-  // module -> coax -> puck antenna chain reads through the enclosure
+  // a narrow x-ray window like the seismograph's translucent handle: the top
+  // cover + antenna puck turn translucent, revealing the coax feed and the
+  // machined antenna boss inside — everything else stays opaque
   {
-    const spec = registry.componentSpec('PRT_BODY');
-    const e = spec && registry.get(spec.semanticId);
-    if (e) materials.setLevel(e.object3D, 'XRAY', 0.8);
+    const lid = registry.get('CMP_LID_ASSEMBLY');
+    lid?.object3D.traverse((n) => {
+      if (/^(Lid_Plate|Lid_Screw_|Puck_Antenna)/.test(n.name))
+        materials.setLevel(n, 'XRAY', 0.8);
+    });
   }
-  // subtle emissive lift marks the two radio parts
-  for (const id of ['CMP_RADIO_ANTENNA', 'CMP_RADIO_MODULE']) {
+  // subtle emissive lift marks the radio chain: modem -> board SMA -> coax feed
+  for (const id of TX_LIFT_IDS) {
     const e = registry.get(id);
     if (e) materials.setHover(e.object3D, true);
   }
@@ -287,7 +307,7 @@ store.subscribe((s, prev) => {
       ? s.focusedSystem === 'SYS_TRANSMISSION'
         ? `${sys.displayName} — modem to puck antenna to cloud`
         : s.focusedSystem === 'SYS_SENSOR'
-          ? 'ADI MEMS accelerometer — on-board sensing element'
+          ? 'ADI ADXL355 — 3-axis MEMS sensing element'
           : `${sys.displayName} — orbit freely, click a core to extract`
       : s.mode === 'xray' && sys
         ? s.focusedSystem === 'SYS_TRANSMISSION'
@@ -362,17 +382,20 @@ function cloudSprite(): THREE.Sprite {          // cloud glyph + upload arrow
   return sp;
 }
 
+/** entities emissive-lifted while the transmission chapter is active */
+const TX_LIFT_IDS = ['CMP_RADIO_MODULE', 'GEO_ANT_SMA', 'CMP_COAX_FEED'];
+
 function clearTxFX(): void {
   if (txGroup) { scene.remove(txGroup); txGroup = null; }
   txPulses = []; txFeedPulses = []; txRings = [];
   txCurve = null; txFeed = null; txDot = null;
-  for (const id of ['CMP_RADIO_ANTENNA', 'CMP_RADIO_MODULE']) {
+  for (const id of [...TX_LIFT_IDS, 'CMP_RADIO_ANTENNA']) {
     const e = registry?.get(id);
-    if (e) {
-      materials.setHover(e.object3D, false);
-      materials.restore(e.object3D, 0.4);
-    }
+    if (e) materials.setHover(e.object3D, false);
   }
+  // NOTE: the translucent cover is restored by machine.reassemble() on mode
+  // exit — never here: buildTxFX() calls clearTxFX() on entry and would kill
+  // the ghost tween mid-fade.
 }
 
 function buildTxFX(): void {

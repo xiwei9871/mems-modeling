@@ -35,6 +35,9 @@ interface ManifestComponent {
   inspectable: boolean;
   assembled: [number, number, number];
   inspect?: [number, number, number];
+  /** three.js euler (deg) applied about the part's own centre at inspect —
+   *  lets a small part tilt its marked face toward the camera. */
+  inspectRot?: [number, number, number];
   extractDirection?: [number, number, number];
   explodeOffset?: [number, number, number];
   ghostInInspect?: boolean;

@@ -19,7 +19,7 @@ COMPONENTS = [
     {"id": "U1_STM32",  "type": "qfp",     "pos": (0.0, -1.5),    "size": (1.42, 1.42, 0.14), "pins": 25},
     {"id": "U2_AIR724", "type": "module",  "pos": (-0.85, 0.9),   "size": (2.4, 2.1, 0.24), "label": True},
     {"id": "U8",        "type": "ic",      "pos": (-1.75, -1.3),  "size": (0.9, 0.6, 0.12)},
-    {"id": "U3_ADXL",   "type": "sensor",  "pos": (1.85, -3.2),   "size": (0.60, 0.60, 0.16)},
+    {"id": "U3_ADXL",   "type": "sensor",  "pos": (1.85, -3.2),   "size": (1.20, 1.20, 0.42)},
     {"id": "U5",        "type": "ic",      "pos": (1.3, -2.5),    "size": (0.45, 0.3, 0.1)},
 
     {"id": "J3_ANT",    "type": "sma",     "pos": (2.1, -2.0)},

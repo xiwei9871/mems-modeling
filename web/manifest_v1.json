@@ -73,13 +73,13 @@
    "inspect": {
     "lens_mm": 55,
     "position": [
-     2.4,
-     6.3,
-     4.5
+     1.5,
+     2.9,
+     4.2
     ],
     "target": [
      0,
-     4.2,
+     0.25,
      0
     ]
    }
@@ -133,10 +133,15 @@
     1.62,
     3.2
    ],
-   "displayName": "ADI MEMS Accelerometer",
+   "displayName": "ADI ADXL355 Accelerometer",
    "inspect": [
     0,
-    4.2,
+    0.25,
+    0
+   ],
+   "inspectRot": [
+    16,
+    14,
     0
    ],
    "inspectable": true,
@@ -402,7 +407,7 @@
     7.0,
     -0.0
    ],
-   "oneLiner": "ADI MEMS accelerometer — the vibration pickup on the board.",
+   "oneLiner": "ADI ADXL355 3-axis MEMS — the vibration pickup on the board.",
    "order": 3,
    "parts": [
     "PRT_ADXL"

@@ -81,6 +81,19 @@ export class TransitionManager {
     });
   }
 
+  /** Tween an Object3D local rotation (quaternion slerp). */
+  quaternion(
+    obj: THREE.Object3D,
+    to: THREE.Quaternion,
+    opts: { duration?: number; tag?: string; ease?: (t: number) => number } = {},
+  ): Promise<void> {
+    const from = obj.quaternion.clone();
+    return this.run({
+      ...opts,
+      update: (k) => obj.quaternion.slerpQuaternions(from, to, k),
+    });
+  }
+
   /** Tween camera position + controls target together (spec §30). */
   camera(
     cam: THREE.PerspectiveCamera,

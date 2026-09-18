@@ -61,10 +61,29 @@ export class ExperienceStateMachine {
     return base;
   }
 
-  private moveComponent(partId: string, to: THREE.Vector3, duration: number): Promise<void> {
+  /** Rotation a part's inspect pivot should reach in the given mode —
+   *  tilt only exists inside inspection (manifest inspectRot, degrees). */
+  private targetQuaternion(partId: string, mode: string): THREE.Quaternion {
+    const spec = this.registry.componentSpec(partId);
+    if (mode === 'inspection' && spec?.inspectRot) {
+      const [rx, ry, rz] = spec.inspectRot.map((d) => (d * Math.PI) / 180);
+      return new THREE.Quaternion().setFromEuler(new THREE.Euler(rx, ry, rz, 'XYZ'));
+    }
+    return new THREE.Quaternion();
+  }
+
+  private moveComponent(
+    partId: string, to: THREE.Vector3, duration: number, mode = 'overview',
+  ): Promise<void> {
     const sem = this.registry.componentSpec(partId)!.semanticId;
     const entity = this.registry.get(sem);
     if (!entity) return Promise.resolve();
+    const pivot = entity.object3D.getObjectByName('INSPECT_PIVOT');
+    if (pivot)
+      void this.tweens.quaternion(pivot, this.targetQuaternion(partId, mode), {
+        duration,
+        tag: 'motion',
+      });
     return this.tweens.position(entity.object3D, to, { duration, tag: 'motion' });
   }
 
@@ -275,7 +294,7 @@ export class ExperienceStateMachine {
     }
     await Promise.all([
       ...containers.map((partId) =>
-        this.moveComponent(partId, this.targetPosition(partId, 'inspection'), 1.1),
+        this.moveComponent(partId, this.targetPosition(partId, 'inspection'), 1.1, 'inspection'),
       ),
       ...(rideDelta
         ? contents.map((partId) => {
@@ -284,6 +303,7 @@ export class ExperienceStateMachine {
               partId,
               mm(spec.assembled).add(rideDelta),
               1.1,
+              'inspection',
             );
           })
         : []),
@@ -292,7 +312,7 @@ export class ExperienceStateMachine {
     for (const partId of containers) this.applyOpenTop(partId);
     if (containers.length) await sleep(950);
     const jobs = contents.map((partId) =>
-      this.moveComponent(partId, this.targetPosition(partId, 'inspection'), 1.1),
+      this.moveComponent(partId, this.targetPosition(partId, 'inspection'), 1.1, 'inspection'),
     );
     await Promise.all(jobs);
     this.store.set({ inspectionProgress: 1 });
@@ -306,7 +326,7 @@ export class ExperienceStateMachine {
     if (extracted && spec.extractDirection) {
       target.add(mm(spec.extractDirection).multiplyScalar(2.8));
     }
-    await this.moveComponent(partId, target, 0.7);
+    await this.moveComponent(partId, target, 0.7, 'inspection');
   }
 }
 

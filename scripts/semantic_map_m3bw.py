@@ -46,7 +46,7 @@ SYSTEMS: dict[str, dict[str, object]] = {
     },
     "SYS_SENSOR": {
         "displayName": "Sensing System",
-        "oneLiner": "ADI MEMS accelerometer — the vibration pickup on the board.",
+        "oneLiner": "ADI ADXL355 3-axis MEMS — the vibration pickup on the board.",
         "order": 3,
         "parts": ("PRT_ADXL",),
         # same vector as ACQUISITION: the chip rides the board in the explode
@@ -93,10 +93,12 @@ PARTS: dict[str, dict[str, object]] = {
         "inspect": (0, 0, 3.8),
     },
     "PRT_ADXL": {
-        "semanticId": "CMP_ADXL_SENSOR", "displayName": "ADI MEMS Accelerometer",
+        "semanticId": "CMP_ADXL_SENSOR", "displayName": "ADI ADXL355 Accelerometer",
         "role": "HERO", "systemId": "SYS_SENSOR", "anchor": (1.85, -3.2, 1.62),
         "members": ("U3_ADXL",),
-        "inspect": (0, 0, 4.2),
+        # rests on the shadow plane (anchor ~= chip centre), slight tilt so the
+        # laser-marked lid reads toward the inspect camera
+        "inspect": (0, 0, 0.25), "inspectRot": [16, 14, 0],
     },
     "PRT_BATL": {
         "semanticId": "CMP_BATTERY_L", "displayName": "Battery Pack L",
@@ -213,7 +215,7 @@ CAMERA_PRESETS: dict[str, dict[str, object]] = {
     "architectureHero":   {"position": (59, -59, 41),  "target": (0, 0, 5),   "lens_mm": 55},
     "SYS_SENSOR": {
         "context": {"position": (31, -30, 22),   "target": (0, 0, 3),   "lens_mm": 55},
-        "inspect": {"position": (2.4, -4.5, 6.3), "target": (0, 0, 4.2), "lens_mm": 55},
+        "inspect": {"position": (1.5, -4.2, 2.9), "target": (0, 0, 0.25), "lens_mm": 55},
     },
     "SYS_ACQUISITION": {
         "context": {"position": (32, -31, 22),   "target": (0, 0, 3),   "lens_mm": 55},

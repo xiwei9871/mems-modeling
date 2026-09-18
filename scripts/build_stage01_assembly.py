@@ -376,13 +376,22 @@ for c in PL.COMPONENTS:
                 box(f"{c['id']}_pad{sy}_{k}", 0.05, 0.05, 0.03,
                     (px, cy + sy * (d / 2 - 0.03), ZB + 0.015), MAT["gold"])
     elif t == "sensor":
-        # ADI MEMS accelerometer: beige ceramic LCC body + dark lid + pins
-        o = comp_box(c["id"], c); o.data.materials.append(MAT["ceramic"])
-        o.modifiers.new("edge", "BEVEL").width = 0.02
+        # ADI ADXL355: beige ceramic LCC-14 body + dark lid + laser marking.
+        # declared size is 2x real (comp_box halves): real chip = 6x6x2.1 mm.
+        # hoff=-h/4 puts the body bottom ON the board (comp_box centres at ZB+h/2).
         w, d, h = c["size"]
-        box(c["id"] + "_lid", w * 0.32, d * 0.32, 0.012,
-            (cx, cy, ZB + h + 0.006), MAT["port_blk"])
-        # LCC terminals omitted per review: chip shown as ceramic body + lid only
+        o = comp_box(c["id"], c, -h / 4); o.data.materials.append(MAT["ceramic"])
+        o.modifiers.new("edge", "BEVEL").width = 0.03
+        top = ZB + h / 2             # body upper face
+        box(c["id"] + "_lid", w * 0.42, d * 0.42, 0.014,
+            (cx, cy, top + 0.007), MAT["port_blk"])
+        bpy.ops.object.text_add(location=(cx, cy, top + 0.016))
+        mk = bpy.context.object; mk.name = c["id"] + "_mark"
+        mk.data.body = "ADXL355"
+        mk.data.align_x = "CENTER"; mk.data.align_y = "CENTER"
+        mk.data.size = w * 0.05; mk.data.extrude = 0.001
+        mk.data.materials.append(MAT["chip"])
+        bpy.ops.object.convert(target="MESH")
     elif t in ("ic", "block", "xtal"):
         o = comp_box(c["id"], c); o.data.materials.append(MAT["chip"] if t != "xtal" else MAT["module"])
         o.modifiers.new("edge", "BEVEL").width = 0.02

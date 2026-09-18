@@ -178,6 +178,8 @@ def main():
         }
         if "inspect" in spec:
             comp["inspect"] = yup(spec["inspect"])
+        if "inspectRot" in spec:
+            comp["inspectRot"] = list(spec["inspectRot"])  # three.js euler deg
         if "extractDirection" in spec:
             comp["extractDirection"] = yup(spec["extractDirection"])
         if "explodeOffset" in spec:
