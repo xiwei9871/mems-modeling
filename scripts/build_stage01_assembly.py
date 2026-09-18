@@ -382,11 +382,7 @@ for c in PL.COMPONENTS:
         w, d, h = c["size"]
         box(c["id"] + "_lid", w * 0.32, d * 0.32, 0.012,
             (cx, cy, ZB + h + 0.006), MAT["port_blk"])
-        for sx in (-1, 1):
-            for k in range(4):
-                py = cy - d * 0.32 + k * d * 0.21
-                box(f"{c['id']}_pin{sx}_{k}", 0.045, 0.05, 0.02,
-                    (cx + sx * (w / 4 + 0.015), py, ZB + 0.01), MAT["gold"])
+        # LCC terminals omitted per review: chip shown as ceramic body + lid only
     elif t in ("ic", "block", "xtal"):
         o = comp_box(c["id"], c); o.data.materials.append(MAT["chip"] if t != "xtal" else MAT["module"])
         o.modifiers.new("edge", "BEVEL").width = 0.02
