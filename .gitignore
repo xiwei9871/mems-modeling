@@ -33,3 +33,8 @@ stage_*/web/*.glb
 stage_*/web-v1/node_modules/
 stage_*/web-v1/dist/
 .playwright-cli/
+
+# web v1 interactive product — generated artifacts
+web/node_modules/
+web/dist/
+web/*.glb

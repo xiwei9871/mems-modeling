@@ -1,0 +1,439 @@
+{
+ "cameraPresets": {
+  "SYS_ACQUISITION": {
+   "context": {
+    "lens_mm": 55,
+    "position": [
+     24,
+     17,
+     23
+    ],
+    "target": [
+     0,
+     3,
+     0
+    ]
+   },
+   "inspect": {
+    "lens_mm": 55,
+    "position": [
+     7,
+     10.5,
+     12
+    ],
+    "target": [
+     0,
+     3.8,
+     0
+    ]
+   }
+  },
+  "SYS_POWER": {
+   "context": {
+    "lens_mm": 55,
+    "position": [
+     24,
+     15,
+     21
+    ],
+    "target": [
+     0,
+     3,
+     0
+    ]
+   },
+   "inspect": {
+    "lens_mm": 55,
+    "position": [
+     11,
+     13,
+     24
+    ],
+    "target": [
+     0,
+     3.1,
+     0
+    ]
+   }
+  },
+  "SYS_SENSOR": {
+   "context": {
+    "lens_mm": 55,
+    "position": [
+     23,
+     17,
+     22
+    ],
+    "target": [
+     0,
+     3,
+     0
+    ]
+   },
+   "inspect": {
+    "lens_mm": 55,
+    "position": [
+     1.6,
+     5.6,
+     3.0
+    ],
+    "target": [
+     0,
+     4.2,
+     0
+    ]
+   }
+  },
+  "SYS_TRANSMISSION": {
+   "context": {
+    "lens_mm": 55,
+    "position": [
+     31,
+     23,
+     20
+    ],
+    "target": [
+     0,
+     4.5,
+     0
+    ]
+   }
+  },
+  "architectureHero": {
+   "lens_mm": 55,
+   "position": [
+    42,
+    31,
+    42
+   ],
+   "target": [
+    0,
+    5,
+    0
+   ]
+  },
+  "overviewHero": {
+   "lens_mm": 55,
+   "position": [
+    30,
+    24,
+    30
+   ],
+   "target": [
+    0,
+    3,
+    0
+   ]
+  }
+ },
+ "components": {
+  "PRT_ADXL": {
+   "assembled": [
+    1.85,
+    1.62,
+    3.2
+   ],
+   "displayName": "ADI MEMS Accelerometer",
+   "inspect": [
+    0,
+    4.2,
+    0
+   ],
+   "inspectable": true,
+   "role": "HERO",
+   "semanticId": "CMP_ADXL_SENSOR",
+   "systemId": "SYS_SENSOR"
+  },
+  "PRT_BASE": {
+   "assembled": [
+    0.0,
+    0.34,
+    -0.0
+   ],
+   "displayName": "Base Plate",
+   "inspectable": false,
+   "role": "SECONDARY",
+   "semanticId": "CMP_BASE_PLATE",
+   "systemId": "SYS_FIELD_PLATFORM"
+  },
+  "PRT_BATL": {
+   "assembled": [
+    -3.3,
+    2.7,
+    -0.0
+   ],
+   "displayName": "Battery Pack L",
+   "inspect": [
+    -4.2,
+    3.0,
+    0
+   ],
+   "inspectable": true,
+   "role": "PRIMARY",
+   "semanticId": "CMP_BATTERY_L",
+   "systemId": "SYS_POWER"
+  },
+  "PRT_BATR": {
+   "assembled": [
+    3.3,
+    2.7,
+    -0.0
+   ],
+   "displayName": "Battery Pack R",
+   "inspect": [
+    4.2,
+    3.0,
+    0
+   ],
+   "inspectable": true,
+   "role": "PRIMARY",
+   "semanticId": "CMP_BATTERY_R",
+   "systemId": "SYS_POWER"
+  },
+  "PRT_BODY": {
+   "assembled": [
+    0.0,
+    2.6,
+    -0.0
+   ],
+   "displayName": "Body Shell",
+   "inspectable": false,
+   "role": "SECONDARY",
+   "semanticId": "CMP_BODY_SHELL",
+   "systemId": "SYS_FIELD_PLATFORM"
+  },
+  "PRT_BULKHEAD": {
+   "assembled": [
+    0.0,
+    3.2,
+    4.2
+   ],
+   "displayName": "Bulkhead Connector",
+   "explodeOffset": [
+    0,
+    0,
+    2.2
+   ],
+   "inspectable": false,
+   "role": "SUPPORT",
+   "semanticId": "CMP_BULKHEAD",
+   "systemId": "SYS_FIELD_PLATFORM"
+  },
+  "PRT_COAX": {
+   "assembled": [
+    0.6,
+    3.6,
+    1.6
+   ],
+   "displayName": "Antenna Coax Feed",
+   "inspectable": true,
+   "role": "SUPPORT",
+   "semanticId": "CMP_COAX_FEED",
+   "systemId": "SYS_TOP"
+  },
+  "PRT_LID": {
+   "assembled": [
+    0.0,
+    5.2,
+    -0.0
+   ],
+   "displayName": "Lid & Antenna Assembly",
+   "inspectable": true,
+   "role": "SECONDARY",
+   "semanticId": "CMP_LID_ASSEMBLY",
+   "systemId": "SYS_TOP"
+  },
+  "PRT_MAG_01": {
+   "assembled": [
+    4.5,
+    -0.25,
+    -2.5
+   ],
+   "displayName": "Magnet Foot 01",
+   "explodeOffset": [
+    0,
+    -1.5,
+    0
+   ],
+   "inspectable": false,
+   "role": "SUPPORT",
+   "semanticId": "CMP_MAGNET_01",
+   "systemId": "SYS_FIELD_PLATFORM"
+  },
+  "PRT_MAG_02": {
+   "assembled": [
+    -4.5,
+    -0.25,
+    -2.5
+   ],
+   "displayName": "Magnet Foot 02",
+   "explodeOffset": [
+    0,
+    -1.5,
+    0
+   ],
+   "inspectable": false,
+   "role": "SUPPORT",
+   "semanticId": "CMP_MAGNET_02",
+   "systemId": "SYS_FIELD_PLATFORM"
+  },
+  "PRT_MAG_03": {
+   "assembled": [
+    4.5,
+    -0.25,
+    2.5
+   ],
+   "displayName": "Magnet Foot 03",
+   "explodeOffset": [
+    0,
+    -1.5,
+    0
+   ],
+   "inspectable": false,
+   "role": "SUPPORT",
+   "semanticId": "CMP_MAGNET_03",
+   "systemId": "SYS_FIELD_PLATFORM"
+  },
+  "PRT_MAG_04": {
+   "assembled": [
+    -4.5,
+    -0.25,
+    2.5
+   ],
+   "displayName": "Magnet Foot 04",
+   "explodeOffset": [
+    0,
+    -1.5,
+    0
+   ],
+   "inspectable": false,
+   "role": "SUPPORT",
+   "semanticId": "CMP_MAGNET_04",
+   "systemId": "SYS_FIELD_PLATFORM"
+  },
+  "PRT_PCB": {
+   "assembled": [
+    0.0,
+    1.6,
+    -0.0
+   ],
+   "displayName": "Acquisition Main Board",
+   "inspect": [
+    0,
+    3.8,
+    0
+   ],
+   "inspectable": true,
+   "role": "HERO",
+   "semanticId": "CMP_MAIN_PCB",
+   "systemId": "SYS_ACQUISITION"
+  },
+  "PRT_USB": {
+   "assembled": [
+    1.0,
+    3.2,
+    -4.2
+   ],
+   "displayName": "USB-C Service Port",
+   "explodeOffset": [
+    0,
+    0,
+    -2.2
+   ],
+   "inspectable": false,
+   "role": "SUPPORT",
+   "semanticId": "CMP_USB_PORT",
+   "systemId": "SYS_FIELD_PLATFORM"
+  }
+ },
+ "glb": "detector_assembly.glb",
+ "systems": {
+  "SYS_ACQUISITION": {
+   "displayName": "Acquisition System",
+   "explodeVector": [
+    0.0,
+    5.0,
+    -0.0
+   ],
+   "oneLiner": "Main PCB: STM32 host, Air724 modem and analog front-end.",
+   "order": 1,
+   "parts": [
+    "PRT_PCB"
+   ]
+  },
+  "SYS_FIELD_PLATFORM": {
+   "displayName": "Field Platform",
+   "explodeVector": [
+    0.0,
+    -1.2,
+    -0.0
+   ],
+   "oneLiner": "Housing, base plate, mounting magnets and wall ports.",
+   "order": 4,
+   "parts": [
+    "PRT_BODY",
+    "PRT_BASE",
+    "PRT_MAG_01",
+    "PRT_MAG_02",
+    "PRT_MAG_03",
+    "PRT_MAG_04",
+    "PRT_BULKHEAD",
+    "PRT_USB"
+   ]
+  },
+  "SYS_POWER": {
+   "displayName": "Power System",
+   "explodeVector": [
+    0.0,
+    2.5,
+    -0.0
+   ],
+   "oneLiner": "Two Li-ion packs feeding the board through JST leads.",
+   "order": 2,
+   "parts": [
+    "PRT_BATL",
+    "PRT_BATR"
+   ]
+  },
+  "SYS_SENSOR": {
+   "displayName": "Sensing System",
+   "explodeVector": [
+    0.0,
+    5.0,
+    -0.0
+   ],
+   "oneLiner": "ADI MEMS accelerometer — the vibration pickup on the board.",
+   "order": 3,
+   "parts": [
+    "PRT_ADXL"
+   ]
+  },
+  "SYS_TOP": {
+   "displayName": "Top Assembly",
+   "explodeVector": [
+    0.0,
+    9.0,
+    -0.0
+   ],
+   "oneLiner": "Lid, screws and the 4G antenna puck.",
+   "order": 0,
+   "parts": [
+    "PRT_LID",
+    "PRT_COAX"
+   ]
+  },
+  "SYS_TRANSMISSION": {
+   "displayName": "Transmission",
+   "explodeVector": [
+    0.0,
+    0.0,
+    -0.0
+   ],
+   "oneLiner": "Air724 modem -> coax -> puck antenna -> cloud.",
+   "order": 5,
+   "parts": []
+  }
+ },
+ "unit": "cm",
+ "version": 1
+}

@@ -386,7 +386,7 @@ for c in PL.COMPONENTS:
             for k in range(4):
                 py = cy - d * 0.32 + k * d * 0.21
                 box(f"{c['id']}_pin{sx}_{k}", 0.045, 0.05, 0.02,
-                    (cx + sx * (w / 2 + 0.03), py, ZB + 0.01), MAT["gold"])
+                    (cx + sx * (w / 2 + 0.005), py, ZB + 0.01), MAT["gold"])
     elif t in ("ic", "block", "xtal"):
         o = comp_box(c["id"], c); o.data.materials.append(MAT["chip"] if t != "xtal" else MAT["module"])
         o.modifiers.new("edge", "BEVEL").width = 0.02
