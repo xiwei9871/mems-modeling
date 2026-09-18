@@ -28,21 +28,21 @@ SYSTEMS: dict[str, dict[str, object]] = {
         "oneLiner": "Lid, screws and the 4G antenna puck.",
         "order": 0,
         "parts": ("PRT_LID", "PRT_COAX"),
-        "explode": [0.0, 0.0, 9.0],
+        "explode": [0.0, 0.0, 10.5],
     },
     "SYS_ACQUISITION": {
         "displayName": "Acquisition System",
         "oneLiner": "Main PCB: STM32 host, Air724 modem and analog front-end.",
         "order": 1,
         "parts": ("PRT_PCB",),
-        "explode": [0.0, 0.0, 5.0],
+        "explode": [0.0, 0.0, 7.0],
     },
     "SYS_POWER": {
         "displayName": "Power System",
         "oneLiner": "Two Li-ion packs feeding the board through JST leads.",
         "order": 2,
         "parts": ("PRT_BATL", "PRT_BATR"),
-        "explode": [0.0, 0.0, 2.5],
+        "explode": [0.0, 0.0, 4.5],
     },
     "SYS_SENSOR": {
         "displayName": "Sensing System",
@@ -50,7 +50,7 @@ SYSTEMS: dict[str, dict[str, object]] = {
         "order": 3,
         "parts": ("PRT_ADXL",),
         # same vector as ACQUISITION: the chip rides the board in the explode
-        "explode": [0.0, 0.0, 5.0],
+        "explode": [0.0, 0.0, 7.0],
     },
     "SYS_FIELD_PLATFORM": {
         "displayName": "Field Platform",
@@ -58,7 +58,7 @@ SYSTEMS: dict[str, dict[str, object]] = {
         "order": 4,
         "parts": ("PRT_BODY", "PRT_BASE", "PRT_MAG_01", "PRT_MAG_02",
                   "PRT_MAG_03", "PRT_MAG_04", "PRT_BULKHEAD", "PRT_USB"),
-        "explode": [0.0, 0.0, -1.2],
+        "explode": [0.0, 0.0, -2.0],
     },
     "SYS_TRANSMISSION": {
         "displayName": "Transmission",
@@ -209,22 +209,22 @@ CHILD_TAGS: dict[str, dict[str, object]] = {
 # ---------------------------------------------------------------------------
 
 CAMERA_PRESETS: dict[str, dict[str, object]] = {
-    "overviewHero":       {"position": (30, -30, 24),  "target": (0, 0, 3),   "lens_mm": 55},
-    "architectureHero":   {"position": (42, -42, 31),  "target": (0, 0, 5),   "lens_mm": 55},
+    "overviewHero":       {"position": (42, -42, 32),  "target": (0, 0, 3),   "lens_mm": 55},
+    "architectureHero":   {"position": (59, -59, 41),  "target": (0, 0, 5),   "lens_mm": 55},
     "SYS_SENSOR": {
-        "context": {"position": (23, -22, 17),   "target": (0, 0, 3),   "lens_mm": 55},
-        "inspect": {"position": (1.6, -3.0, 5.6), "target": (0, 0, 4.2), "lens_mm": 55},
+        "context": {"position": (31, -30, 22),   "target": (0, 0, 3),   "lens_mm": 55},
+        "inspect": {"position": (2.4, -4.5, 6.3), "target": (0, 0, 4.2), "lens_mm": 55},
     },
     "SYS_ACQUISITION": {
-        "context": {"position": (24, -23, 17),   "target": (0, 0, 3),   "lens_mm": 55},
-        "inspect": {"position": (7, -12, 10.5),  "target": (0, 0, 3.8), "lens_mm": 55},
+        "context": {"position": (32, -31, 22),   "target": (0, 0, 3),   "lens_mm": 55},
+        "inspect": {"position": (14, -23, 16.5), "target": (0, 0, 3.8), "lens_mm": 55},
     },
     "SYS_POWER": {
-        "context": {"position": (24, -21, 15),   "target": (0, 0, 3),   "lens_mm": 55},
-        "inspect": {"position": (11, -24, 13),   "target": (0, 0, 3.1), "lens_mm": 55},
+        "context": {"position": (32, -28, 19),   "target": (0, 0, 3),   "lens_mm": 55},
+        "inspect": {"position": (15, -34, 17),   "target": (0, 0, 3.1), "lens_mm": 55},
     },
     "SYS_TRANSMISSION": {
-        "context": {"position": (31, -20, 23),   "target": (0, 0, 4.5), "lens_mm": 55},
+        "context": {"position": (43, -28, 30),   "target": (0, 0, 4.5), "lens_mm": 55},
     },
 }
 

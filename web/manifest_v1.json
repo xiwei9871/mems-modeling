@@ -4,9 +4,9 @@
    "context": {
     "lens_mm": 55,
     "position": [
-     24,
-     17,
-     23
+     32,
+     22,
+     31
     ],
     "target": [
      0,
@@ -17,9 +17,9 @@
    "inspect": {
     "lens_mm": 55,
     "position": [
-     7,
-     10.5,
-     12
+     14,
+     16.5,
+     23
     ],
     "target": [
      0,
@@ -32,9 +32,9 @@
    "context": {
     "lens_mm": 55,
     "position": [
-     24,
-     15,
-     21
+     32,
+     19,
+     28
     ],
     "target": [
      0,
@@ -45,9 +45,9 @@
    "inspect": {
     "lens_mm": 55,
     "position": [
-     11,
-     13,
-     24
+     15,
+     17,
+     34
     ],
     "target": [
      0,
@@ -60,9 +60,9 @@
    "context": {
     "lens_mm": 55,
     "position": [
-     23,
-     17,
-     22
+     31,
+     22,
+     30
     ],
     "target": [
      0,
@@ -73,9 +73,9 @@
    "inspect": {
     "lens_mm": 55,
     "position": [
-     1.6,
-     5.6,
-     3.0
+     2.4,
+     6.3,
+     4.5
     ],
     "target": [
      0,
@@ -88,9 +88,9 @@
    "context": {
     "lens_mm": 55,
     "position": [
-     31,
-     23,
-     20
+     43,
+     30,
+     28
     ],
     "target": [
      0,
@@ -102,9 +102,9 @@
   "architectureHero": {
    "lens_mm": 55,
    "position": [
-    42,
-    31,
-    42
+    59,
+    41,
+    59
    ],
    "target": [
     0,
@@ -115,9 +115,9 @@
   "overviewHero": {
    "lens_mm": 55,
    "position": [
-    30,
-    24,
-    30
+    42,
+    32,
+    42
    ],
    "target": [
     0,
@@ -352,7 +352,7 @@
    "displayName": "Acquisition System",
    "explodeVector": [
     0.0,
-    5.0,
+    7.0,
     -0.0
    ],
    "oneLiner": "Main PCB: STM32 host, Air724 modem and analog front-end.",
@@ -365,7 +365,7 @@
    "displayName": "Field Platform",
    "explodeVector": [
     0.0,
-    -1.2,
+    -2.0,
     -0.0
    ],
    "oneLiner": "Housing, base plate, mounting magnets and wall ports.",
@@ -385,7 +385,7 @@
    "displayName": "Power System",
    "explodeVector": [
     0.0,
-    2.5,
+    4.5,
     -0.0
    ],
    "oneLiner": "Two Li-ion packs feeding the board through JST leads.",
@@ -399,7 +399,7 @@
    "displayName": "Sensing System",
    "explodeVector": [
     0.0,
-    5.0,
+    7.0,
     -0.0
    ],
    "oneLiner": "ADI MEMS accelerometer — the vibration pickup on the board.",
@@ -412,7 +412,7 @@
    "displayName": "Top Assembly",
    "explodeVector": [
     0.0,
-    9.0,
+    10.5,
     -0.0
    ],
    "oneLiner": "Lid, screws and the 4G antenna puck.",
